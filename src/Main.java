@@ -8,19 +8,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String in = scanner.nextLine();
-        String ip = examinationIp(in);
-        WriteIp(ip);
-        System.out.println(ip);
-    }
-    public static String examinationIp(String in){
-        Pattern pattern = Pattern.compile("(.*)((([0-9]|[1-9][0-9]|1([0-9]{2})|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1([0-9]{2})|2[0-4][0-9]|25[0-5]))(.*)");
-        Matcher matcher = pattern.matcher(in);
-        String ip = null;
-        if (matcher.find()){
-            ip = matcher.group(2);
-            return ip;
+        Pattern pattern = Pattern.compile("^((([0-9]|[1-9][0-9]|1([0-9]{2})|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1([0-9]{2})|2[0-4][0-9]|25[0-5]))$");
+        if (pattern.matcher(in).find()){
+            in = in + " Верный IP";
+            WriteIp(in);
         }
-        else return "Невереный IP!";
+        else {
+            in = in + " Неверный IP";
+            WriteIp(in);
+        }
     }
     public static void WriteIp(String ip) {
         try (FileWriter writer = new FileWriter("listOfIp.txt")) {
